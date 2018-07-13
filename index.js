@@ -303,12 +303,22 @@ var ModalBox = createReactClass({
     else if (this.props.position == "center") {
       position = containerHeight / 2 - this.state.height / 2;
     }
-    if (this.state.customPositionY) {
-      position = this.state.customPositionY;
+    if (this.state.customPositionY != undefined) {
+      if ( this.state.customPositionY === 'end') {
+        position = containerHeight - 10;
+      } else {
+        position = this.state.customPositionY;
+      }
+
       if ( position + this.state.height > containerHeight ){
         position -= this.state.height;
       }
     }
+    
+    if ( this.state.customOffsetY ) {
+      position += this.state.customOffsetY;
+    }
+
     // Checking if the position >= 0
     if (position < 0) position = 0;
     return position;
@@ -425,7 +435,7 @@ var ModalBox = createReactClass({
   renderContent() {
     var size    = {height: this.state.containerHeight, width: this.state.containerWidth};
     var offsetX;
-    if ( this.state.customPositionX ) {
+    if ( this.state.customPositionX != undefined ) {
       let customX = this.state.customPositionX;
       if ( this.state.customPositionX === 'end' ){
         customX = this.state.containerWidth - 10;
@@ -433,6 +443,10 @@ var ModalBox = createReactClass({
       offsetX = customX - this.state.width;
     } else {
       offsetX = (this.state.containerWidth - this.state.width) / 2;
+    }
+
+    if ( this.state.customOffsetX ) {
+      offsetX += this.state.customOffsetX;
     }
 
     return (
@@ -484,12 +498,18 @@ var ModalBox = createReactClass({
       };
       this.setState({isAnimateOpen : true});
     }    
-    if (options.customPositionY) {
+    if (options.customPositionY != undefined) {
       this.setState({customPositionY: options.customPositionY});
     }
-    if (options.customPositionX) {
+    if (options.customPositionX != undefined) {
       this.setState({customPositionX: options.customPositionX});
     }  
+    if (options.customOffsetY) {
+      this.setState({customOffsetY: options.customOffsetY});
+    }
+    if (options.customOffsetX) {
+      this.setState({customOffsetX: options.customOffsetX});
+    }
   },
 
   close: function() {
