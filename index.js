@@ -435,10 +435,11 @@ var ModalBox = createReactClass({
   renderContent() {
     var size    = {height: this.state.containerHeight, width: this.state.containerWidth};
     var offsetX;
+    const margin = 10;
     if ( this.state.customPositionX != undefined ) {
       let customX = this.state.customPositionX;
       if ( this.state.customPositionX === 'end' ){
-        customX = this.state.containerWidth - 10;
+        customX = this.state.containerWidth - margin;
       }
       offsetX = customX - this.state.width;
     } else {
@@ -447,6 +448,12 @@ var ModalBox = createReactClass({
 
     if ( this.state.customOffsetX ) {
       offsetX += this.state.customOffsetX;
+      if (offsetX < 0){
+        offsetX = margin;
+      }
+      if (offsetX + this.state.width > this.state.containerWidth) {
+        offsetX = this.state.containerWidth - this.state.width - margin;
+      }
     }
 
     return (
