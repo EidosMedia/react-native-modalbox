@@ -326,7 +326,7 @@ var ModalBox = createReactClass({
     }
 
     // Checking if the position >= 0
-    if (position < 0) position = 0;
+    if (position < 0) position = MARGIN;
     return position;
   },
 
@@ -462,6 +462,8 @@ var ModalBox = createReactClass({
     if (offsetX + this.state.width > this.state.containerWidth) {
       offsetX = this.state.containerWidth - this.state.width - MARGIN;
     }
+
+    if (offsetX < 0) offsetX = MARGIN;
 
     return (
       <Animated.View
