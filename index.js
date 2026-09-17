@@ -331,7 +331,9 @@ var ModalBox = createReactClass({
             else this.animateOpen();
         };
 
-        var animEvt = Animated.event([null, { customY: this.state.position }]);
+        var animEvt = Animated.event([null, { customY: this.state.position }], {
+            useNativeDriver: false
+        });
 
         var onPanMove = (evt, state) => {
             var newClosingState =
