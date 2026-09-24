@@ -90,6 +90,7 @@ var ModalBox = createReactClass({
 
     getInitialState: function() {
         var position = this.props.entry === 'top' ? -screen.height : screen.height;
+        var initialWidth = this.props.style && typeof this.props.style.width === 'number' ? this.props.style.width : screen.width;
         return {
             position: this.props.startOpen ? new Animated.Value(0) : new Animated.Value(position),
             backdropOpacity: new Animated.Value(0),
@@ -98,7 +99,7 @@ var ModalBox = createReactClass({
             isAnimateOpen: false,
             swipeToClose: false,
             height: screen.height,
-            width: screen.width,
+            width: initialWidth,
             containerHeight: screen.height,
             containerWidth: screen.width,
             isInitialized: false,
